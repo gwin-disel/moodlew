@@ -26,13 +26,16 @@ if ($form->is_cancelled()) {
         $fromform->id = $id;
         $fromform->timemodified = time();
         $fromform->usermodified = $USER->id;
+        $DB->update_record('block_olympiads', $fromform);
     } else {
         $fromform->timecreated = time();
         $fromform->timemodified = time();
         $fromform->usermodified = $USER->id;
+        $id = $DB->insert_record('block_olympiads', $fromform);
     }
     redirect(new moodle_url('/blocks/olympiads/view.php'), get_string('savedsuccessfully', 'block_olympiads'));
 } else if ($id > 0) {
+    $olympiad = $DB->get_record('block_olympiads', ['id' => $id]);
     if ($olympiad) {
         $form->set_data($olympiad);
     } else {

@@ -1,5 +1,7 @@
 <?php
 
+defined('MOODLE_INTERNAL') || die();
+
 class block_olympiads extends block_base
 {
     public function init() {
