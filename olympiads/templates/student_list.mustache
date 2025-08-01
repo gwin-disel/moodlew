@@ -1,0 +1,24 @@
+<div class="block_olympiads_list">
+    {{#olympiads}}
+        <a href="{{view_url}}" class="card-link-wrapper">
+            <div class="card mb-3 block_olympiads-card">
+                <div class="card-img-top-wrapper">
+<!--                        <img src="https://i.pinimg.com/736x/17/c9/26/17c926575f539247d6cb30b8fb5e7464.jpg" class="card-img-top" alt="{{name}}">-->
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{name}}</h5>
+                    <p class="card-text text-center text-muted">
+                        {{#str}}startdate{{/str}}: {{startdate}}
+                    </p>
+                </div>
+            </div>
+        </a>
+    {{/olympiads}}
+
+    {{^olympiads}}
+        <div class="alert alert-info" role="alert">
+            {{#str}}noolympiads{{/str}}
+        </div>
+    {{/olympiads}}
+</div>
+
