@@ -1,0 +1,27 @@
+<div class="block_olympiads-view">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title text-center">{{name}}</h1>
+            {{#image}}
+                <div class="text-center mb-4">
+                    <img src="{{image}}" class="img-fluid" alt="{{name}}" style="max-height: 400px; object-fit: cover;">
+                </div>
+            {{/image}}
+            <hr>
+            <p>{{{description}}}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    {{#str}}С{{/str}} {{startdate}} по {{enddate}}
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                {{^is_enrolled}}
+                    <a href="{{subscribe_url}}" class="btn btn-lg btn-primary">{{#str}}Записаться{{/str}}</a>
+                {{/is_enrolled}}
+                {{#is_enrolled}}
+                    <button class="btn btn-lg btn-success" disabled>{{#str}}Уже записан{{/str}}</button>
+                {{/is_enrolled}}
+            </div>
+        </div>
+    </div>
+</div>

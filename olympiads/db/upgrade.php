@@ -6,7 +6,7 @@ function xmldb_block_olympiads_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2024073101) {
+    if ($oldversion < 2024073104) {
 
         // Определение таблицы
         $table = new xmldb_table('block_olympiads_participants');
@@ -17,7 +17,7 @@ function xmldb_block_olympiads_upgrade($oldversion) {
         }
     }
 
-    if ($oldversion < 2024073102) {
+    if ($oldversion < 2024073104) {
         $table = new xmldb_table('block_olympiads');
         $field = new xmldb_field('newfield', XMLDB_TYPE_TEXT, 'null', null, XMLDB_NULL, null, null, 'usermodified');
 

@@ -4,23 +4,26 @@ defined('MOODLE_INTERNAL') || die();
 
 class block_olympiads extends block_base
 {
-    public function init() {
+    public function init()
+    {
         $this->title = get_string('pluginname', 'block_olympiads');
     }
 
-    public function get_content() {
+    public function get_content()
+    {
         global $DB, $USER, $OUTPUT, $PAGE;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
+
         $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
 
+
         $canmanage = has_capability('block/olympiads:manage', context_system::instance());
-//        $canmanage = true;
 
         if ($canmanage) {
             // КОНТЕНТ ДЛЯ СОТРУДНИКА (С ПРАВАМИ УПРАВЛЕНИЯ)
@@ -59,7 +62,6 @@ class block_olympiads extends block_base
                     );
                     $actions = $edit_icon . ' ' . $delete_icon;
 
-                    // Измененная строка: название олимпиады теперь является ссылкой на страницу участников
                     $linked_name = html_writer::link($participantsurl, $olympiad->name);
 
                     $row = [
@@ -80,7 +82,6 @@ class block_olympiads extends block_base
 
             if (!empty($olympiads)) {
                 foreach ($olympiads as $olympiad) {
-                    // Проверяем, записан ли абитуриент на эту олимпиаду
                     $is_enrolled_on_olympiad = $DB->record_exists('block_olympiads_participants', ['olympiadid' => $olympiad->id, 'userid' => $USER->id]);
 
                     $viewurl = new moodle_url('/blocks/olympiads/view.php', ['id' => $olympiad->id]);
@@ -99,8 +100,7 @@ class block_olympiads extends block_base
                 }
             }
 
-            // Рендерим шаблон student_list
-            $this->content->text = $OUTPUT->render_from_template('block_olympiads/student_list', [
+            $this->content->text .= $OUTPUT->render_from_template('block_olympiads/student_list', [
                 'olympiads' => $data,
                 'str' => [
                     'title' => get_string('olympiads', 'block_olympiads'),

@@ -3,8 +3,9 @@ require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot . '/blocks/olympiads/lib.php');
 require_once($CFG->dirroot . '/blocks/olympiads/classes/form/olympiad_form.php');
 
+// Проверка прав доступа
 require_login();
-require_capability('moodle/site:manageblocks', context_system::instance());
+require_capability('block/olympiads:manage', context_system::instance());
 
 $id = optional_param('id', 0, PARAM_INT);
 
@@ -33,7 +34,8 @@ if ($form->is_cancelled()) {
         $fromform->usermodified = $USER->id;
         $id = $DB->insert_record('block_olympiads', $fromform);
     }
-    redirect(new moodle_url('/blocks/olympiads/view.php'), get_string('savedsuccessfully', 'block_olympiads'));
+
+    redirect(new moodle_url('/my/'), get_string('savedsuccessfully', 'block_olympiads'));
 } else if ($id > 0) {
     $olympiad = $DB->get_record('block_olympiads', ['id' => $id]);
     if ($olympiad) {
