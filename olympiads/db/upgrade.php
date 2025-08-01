@@ -1,12 +1,31 @@
 <?php
 
-function xmldb_mymodule_upgrade($oldversion) {
-    global $CFG;
+defined('MOODLE_INTERNAL') || die();
 
-    $result = TRUE;
+function xmldb_block_olympiads_upgrade($oldversion) {
+    global $DB;
+    $dbman = $DB->get_manager();
 
-// Insert PHP code from XMLDB Editor here
+    if ($oldversion < 2024073101) {
 
-    return $result;
+        // Определение таблицы
+        $table = new xmldb_table('block_olympiads_participants');
+
+        // Добавление таблицы
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+    }
+
+    if ($oldversion < 2024073102) {
+        $table = new xmldb_table('block_olympiads');
+        $field = new xmldb_field('newfield', XMLDB_TYPE_TEXT, 'null', null, XMLDB_NULL, null, null, 'usermodified');
+
+        // Проверка существования поля
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
+    return true;
 }
-?>
